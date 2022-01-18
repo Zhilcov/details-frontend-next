@@ -1,4 +1,5 @@
-export default function (store, initialData = null) {
+import {Hydratable} from "../interfaces/Hydratable";
+export default function<S extends Hydratable<S>>(store: S, initialData = null): S {
     const _store = store;
 
     // If your page has Next.js data fetching methods that use a Mobx store, it will

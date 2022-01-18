@@ -10,16 +10,16 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import {useAuthStore} from "../../mobx/authStore";
+import {useState} from "react";
 
 
 const SignIn = observer(props => {
     const authStore = useAuthStore();
+    const [userLogin, setUserLogin] = useState<string>('');
+    const [userPassword, setUserPassword] = useState<string>('');
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
-
-        await authStore.login();
+    const handleSubmit = async () => {
+        await authStore.login(userLogin, userPassword);
     };
 
     return (
@@ -63,6 +63,8 @@ const SignIn = observer(props => {
                             label="Логин"
                             name="email"
                             autoFocus
+                            value={userLogin}
+                            onChange={e => setUserLogin(e.target.value)}
                         />
                         <TextField
                             margin="normal"
@@ -73,6 +75,8 @@ const SignIn = observer(props => {
                             type="password"
                             id="password"
                             autoComplete="current-password"
+                            value={userPassword}
+                            onChange={e => setUserPassword(e.target.value)}
                         />
                         <Button
                             type="submit"
