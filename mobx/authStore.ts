@@ -3,7 +3,7 @@ import {useMemo} from "react";
 import initializeStore from "./initializeStore";
 import {UserInterface} from "../interfaces/UserInterface";
 import {Hydratable} from "../interfaces/Hydratable";
-import {makeObservable, observable} from "mobx";
+import {action, makeObservable, observable} from "mobx";
 
 enableStaticRendering(typeof window === 'undefined')
 
@@ -13,18 +13,14 @@ export interface AuthStoreInterface extends Hydratable<AuthStoreInterface> {
 }
 
 class AuthStore implements AuthStoreInterface {
-    user: UserInterface | undefined;
+    @observable user: UserInterface | undefined;
 
-    constructor() {
-        makeObservable(this, {
-            user: observable,
-        })
-    }
-
+    @action
     login(login: string, password: string): void {
 
     }
 
+    @action
     hydrate(data: AuthStoreInterface): void {
         if (!data) return
 
