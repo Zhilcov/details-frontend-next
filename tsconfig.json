@@ -19,7 +19,12 @@
     "jsx": "preserve",
     "experimentalDecorators": true,
     "useDefineForClassFields": true,
-    "incremental": true
+    "incremental": true,
+    "paths": {
+      "~/interfaces/*": ["interfaces/*"],
+      "~/enums/*": ["enums/*"],
+      "~/types/*": ["types/*"]
+    }
   },
   "include": [
     "next-env.d.ts",

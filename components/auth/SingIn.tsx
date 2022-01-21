@@ -18,7 +18,8 @@ const SignIn = observer(props => {
     const [userLogin, setUserLogin] = useState<string>('');
     const [userPassword, setUserPassword] = useState<string>('');
 
-    const handleSubmit = async () => {
+    const handleSubmit = async (e) => {
+        e.preventDefault();
         await authStore.login(userLogin, userPassword);
     };
 

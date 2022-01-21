@@ -4,6 +4,8 @@ import initializeStore from "./initializeStore";
 import {UserInterface} from "../interfaces/UserInterface";
 import {Hydratable} from "../interfaces/Hydratable";
 import {action, makeObservable, observable} from "mobx";
+import {singIn} from "../api/auth";
+import cookie from "js-cookie";
 
 enableStaticRendering(typeof window === 'undefined')
 
@@ -16,8 +18,19 @@ class AuthStore implements AuthStoreInterface {
     @observable user: UserInterface | undefined;
 
     @action
-    login(login: string, password: string): void {
+    async login(login: string, password: string): Promise<void> {
+        console.log(login);
+        console.log(password);
+        try {
+            const {expireAt, accessToken, login} = await singIn(login, password);
+            cookie.set(process.env.authCookie, accessToken, { expires: expireAt });
 
+            this.user = {
+                name: login
+            }
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     @action
